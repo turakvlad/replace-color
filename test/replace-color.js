@@ -5,7 +5,7 @@ const Jimp = require('jimp')
 const replaceColor = require('../')
 const requestPromise = require('request-promise')
 
-describe('Color replace', function () {
+describe('Replace color', function () {
   this.timeout(60000)
 
   it('should respect a dual callback / promise API and execute an error-first callback with a Jimp instance', (done) => {
