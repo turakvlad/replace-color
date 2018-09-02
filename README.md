@@ -2,15 +2,13 @@
 
 `replace-color` replaces one color with another one. Especially this will be helpful if you want to remove the watermarks from the images. This package is built on top of [Jimp](https://github.com/oliver-moran/jimp).
 
-![Example](https://i.imgur.com/d5PNhnt.jpg)
-
 ## Install
 
 ```sh
 npm install --save replace-color
 ```
 
-## Usage
+## Basic usage
 
 `replace-color` supports both Node.js error-first callbacks and promises. The package returns a Jimp's instance which you can use to execute some other [image manipulations methods](https://github.com/oliver-moran/jimp#image-manipulation-methods) or save it with Jimp's [`write`](https://github.com/oliver-moran/jimp/tree/master/packages/jimp#writing-to-files-and-buffers) method.
 
@@ -70,6 +68,66 @@ replaceColor({
   * `formula` *[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) (optional)* - one of the three formulas to calculate the [collor difference](https://en.wikipedia.org/wiki/Color_difference). Supported values are [`E76`](https://en.wikipedia.org/wiki/Color_difference#CIE76), [`E94`](https://en.wikipedia.org/wiki/Color_difference#CIE94) and [`E00`](https://en.wikipedia.org/wiki/Color_difference#CIEDE2000). The default value is `E00` (the best algorithm).
   * `deltaE` *[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) (optional)* - a `deltaE` value which corresponds to a [JND](https://en.wikipedia.org/wiki/Just-noticeable_difference). The default value is `2.3`. Please, read more about `deltaE` [here](http://zschuessler.github.io/DeltaE/learn/). Generaly speaking, if the processed by the `replace-color` package image still has the watermarks, you should increase the `deltaE` value.
 * `callback` *[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function) (optional)* - a Node.js error-first callback.
+
+## Examples
+
+### Remove a watermark
+
+Let's try to remove a watermark from [this](https://i.imgur.com/XqNTuzp.jpg) picture.
+
+```javascript
+const replaceColor = require('replace-color')
+
+replaceColor({
+  image: 'https://i.imgur.com/XqNTuzp.jpg',
+  colors: {
+    type: 'hex',
+    targetColor: '#FFB3B7',
+    replaceColor: '#FFFFFF'
+  },
+  deltaE: 20
+})
+  .then((jimpObject) => {
+    jimpObject.write('./output.jpg', (err) => {
+      if (err) return console.log(err)
+    })
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+```
+
+#### Result
+![Example](https://i.imgur.com/d5PNhnt.jpg)
+
+### Change a background color
+
+Let's try to change a background color for [this](https://i.imgur.com/aCxZpaq.png) picture.
+
+```javascript
+const replaceColor = require('replace-color')
+
+replaceColor({
+  image: 'https://i.imgur.com/aCxZpaq.png',
+  colors: {
+    type: 'hex',
+    targetColor: '#66AE74',
+    replaceColor: '#63A4FF'
+  },
+  deltaE: 10
+})
+  .then((jimpObject) => {
+    jimpObject.write('./output.png', (err) => {
+      if (err) return console.log(err)
+    })
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+```
+
+#### Result
+![Example](https://i.imgur.com/RcUpfuc.jpg)
 
 ## Error handling
 
