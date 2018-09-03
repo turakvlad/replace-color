@@ -1,4 +1,4 @@
-# Replace Color [![Build Status](https://api.travis-ci.org/turakvlad/replace-color.svg?branch=master)](https://travis-ci.org/turakvlad/replace-color) [![NPM version](https://badge.fury.io/js/replace-color.svg)](https://badge.fury.io/js/replace-color) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
+# Replace Color [![Travis Build Status](https://img.shields.io/travis/turakvlad/replace-color.svg)](https://travis-ci.org/turakvlad/replace-color) [![JavaScript Standard Style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard) [![NPM Version](https://img.shields.io/npm/v/replace-color.svg)](https://www.npmjs.com/package/replace-color)
 
 `replace-color` replaces one color with another one. Especially this will be helpful if you want to remove the watermarks from the images. This package is built on top of [Jimp](https://github.com/oliver-moran/jimp).
 
