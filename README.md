@@ -1,6 +1,6 @@
 # Replace Color [![Travis Build Status](https://img.shields.io/travis/turakvlad/replace-color.svg)](https://travis-ci.org/turakvlad/replace-color) [![JavaScript Standard Style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard) [![NPM Version](https://img.shields.io/npm/v/replace-color.svg)](https://www.npmjs.com/package/replace-color)
 
-`replace-color` replaces one color with another one pixel by pixel. Especially this will be helpful if you want to remove the watermarks from the images. This package is built on top of [Jimp](https://github.com/oliver-moran/jimp).
+`replace-color` replaces color with another one pixel by pixel. Especially this will be helpful if you want to remove the watermarks from the images. This package is built on top of [Jimp](https://github.com/oliver-moran/jimp).
 
 ## Install
 
