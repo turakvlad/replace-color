@@ -1,14 +1,18 @@
 {
   "name": "replace-color",
   "version": "1.0.2",
-  "description": "Replace color with another one.",
+  "description": "Replace color with another one pixel by pixel.",
   "keywords": [
-    "change",
-    "color",
-    "remove",
-    "replace",
-    "swap",
-    "watermark"
+    "CIE76",
+    "CIE94",
+    "CIEDE2000",
+    "color difference",
+    "color replacement",
+    "Delta E",
+    "image processing",
+    "pixel by pixel",
+    "remove watermark",
+    "watermark detection"
   ],
   "homepage": "https://github.com/turakvlad/replace-color#readme",
   "bugs": "https://github.com/turakvlad/replace-color/issues",
