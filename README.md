@@ -136,10 +136,12 @@ To indicate the `replace-color`'s errors you should use the `err instanceof repl
 ```javascript
 replaceColor({}, (err, jimpObject) => {
   if (err instanceof replaceColor.ReplaceColorError) {
-    //  A replace-color's error occured. 
-  } else {
-    // An uknown error occured.
+    //  A replace-color's error occurred. 
+  } else if (err) {
+    // An unknown error occurred.
   }
+  
+  // Everything went fine.
 })
 ```
 
