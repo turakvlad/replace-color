@@ -56,6 +56,7 @@ module.exports = ({
             jimpObject.bitmap.data[idx] = replaceRGBColor[0]
             jimpObject.bitmap.data[idx + 1] = replaceRGBColor[1]
             jimpObject.bitmap.data[idx + 2] = replaceRGBColor[2]
+            if (replaceRGBColor[3] !== null) jimpObject.bitmap.data[idx + 3] = replaceRGBColor[3]
           }
         })
 

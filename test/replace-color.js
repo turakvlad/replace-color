@@ -133,6 +133,23 @@ describe('Replace color', function () {
       .catch(done)
   })
 
+  it('should respect "colors.type.replaceColor" AHEX value', (done) => {
+    replaceColor({
+      image: './test/files/watermark.jpg',
+      colors: {
+        type: 'hex',
+        targetColor: '#FFB3B5',
+        replaceColor: '#FFFFFFFF'
+      }
+    })
+      .then((jimpObject) => {
+        assert.strictEqual(jimpObject instanceof Jimp, true)
+
+        done()
+      })
+      .catch(done)
+  })
+
   it('should respect "colors.type" RGB value', (done) => {
     replaceColor({
       image: './test/files/watermark.jpg',
@@ -140,6 +157,23 @@ describe('Replace color', function () {
         type: 'rgb',
         targetColor: [255, 179, 181],
         replaceColor: [255, 255, 255]
+      }
+    })
+      .then((jimpObject) => {
+        assert.strictEqual(jimpObject instanceof Jimp, true)
+
+        done()
+      })
+      .catch(done)
+  })
+
+  it('should respect "colors.type.replaceColor" RGBA value', (done) => {
+    replaceColor({
+      image: './test/files/watermark.jpg',
+      colors: {
+        type: 'rgb',
+        targetColor: [255, 179, 181],
+        replaceColor: [255, 255, 255, 0.5]
       }
     })
       .then((jimpObject) => {
