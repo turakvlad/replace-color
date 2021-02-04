@@ -30,7 +30,7 @@
     "color-convert": "^1.9.3",
     "delta-e": "0.0.7",
     "hex-color-regex": "^1.1.0",
-    "jimp": "^0.9.3"
+    "jimp": "^0.16.1"
   },
   "devDependencies": {
     "mocha": "^5.2.0",
