@@ -1,16 +1,16 @@
 # Replace Color [![Travis Build Status](https://img.shields.io/travis/turakvlad/replace-color.svg)](https://travis-ci.org/turakvlad/replace-color) [![JavaScript Standard Style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard) [![NPM Version](https://img.shields.io/npm/v/replace-color.svg)](https://www.npmjs.com/package/replace-color)
 
-`replace-color` replaces color with another one pixel by pixel. Especially this will be helpful if you want to remove the watermarks from the images. This package is built on top of [Jimp](https://github.com/oliver-moran/jimp).
+`replace-color-multicolor` was fork replace-color for add function multicolor and delta and Testcase already
 
 ## Install
 
 ```sh
-npm install --save replace-color
+npm install --save replace-color-multicolor
 ```
 
 ## Basic usage
 
-`replace-color` supports both Node.js error-first callbacks and promises. The package returns a Jimp's instance which you can use to execute some other [image manipulations methods](https://github.com/oliver-moran/jimp#image-manipulation-methods) or save it with Jimp's [`write`](https://github.com/oliver-moran/jimp/tree/master/packages/jimp#writing-to-files-and-buffers) method.
+`replace-color-multicolor` supports both Node.js error-first callbacks and promises. The package returns a Jimp's instance which you can use to execute some other [image manipulations methods](https://github.com/oliver-moran/jimp#image-manipulation-methods) or save it with Jimp's [`write`](https://github.com/oliver-moran/jimp/tree/master/packages/jimp#writing-to-files-and-buffers) method.
 
 ### Node.js error-first callback example
 
@@ -19,11 +19,11 @@ const replaceColor = require('replace-color')
 
 replaceColor({
   image: './input.jpg',
-  colors: {
+  colors: [{
     type: 'hex',
     targetColor: '#FF0000',
     replaceColor: '#FFFFFF'
-  }
+  }]
 }, (err, jimpObject) => {
   if (err) return console.log(err)
   jimpObject.write('./output.jpg', (err) => {
@@ -39,11 +39,11 @@ const replaceColor = require('replace-color')
 
 replaceColor({
   image: './input.jpg',
-  colors: {
+  colors: [{
     type: 'hex',
     targetColor: '#FF0000',
     replaceColor: '#FFFFFF'
-  }
+  }]
 })
   .then((jimpObject) => {
     jimpObject.write('./output.jpg', (err) => {

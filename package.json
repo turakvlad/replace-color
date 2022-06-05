@@ -1,7 +1,7 @@
 {
-  "name": "replace-color",
-  "version": "2.3.0",
-  "description": "Replace color with another one pixel by pixel.",
+  "name": "replace-color-multicolor",
+  "version": "1.0.0",
+  "description": "Replace color multicolor with another one pixel by pixel.",
   "keywords": [
     "CIE76",
     "CIE94",
@@ -14,17 +14,17 @@
     "remove watermark",
     "watermark detection"
   ],
-  "homepage": "https://github.com/turakvlad/replace-color#readme",
-  "bugs": "https://github.com/turakvlad/replace-color/issues",
+  "homepage": "https://github.com/patradanai/replace-color-multi/#readme",
+  "bugs": "https://github.com/patradanai/replace-color-multi/issues",
   "repository": "turakvlad/replace-color",
   "license": "MIT",
-  "author": "Vladyslav Turak <turakvlad@gmail.com>",
+  "author": "Patradanai",
   "files": [
     "src"
   ],
   "main": "index.js",
   "scripts": {
-    "test": "standard && mocha"
+    "test": "mocha"
   },
   "dependencies": {
     "color-convert": "^1.9.3",

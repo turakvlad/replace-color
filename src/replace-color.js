@@ -5,12 +5,7 @@ const Jimp = require('jimp')
 const ReplaceColorError = require('./utils/replace-color-error')
 const validateColors = require('./utils/validate-colors')
 
-module.exports = ({
-  image,
-  colors,
-  formula = 'E00',
-  deltaE = 2.3
-} = {}, callback) => {
+module.exports = ({ image, colors, formula = 'E00', deltaE = 2.3 } = {}, callback) => {
   if (callback) {
     if (typeof callback !== 'function') {
       throw new ReplaceColorError('PARAMETER_INVALID', 'callback')
@@ -18,19 +13,26 @@ module.exports = ({
   }
 
   return new Promise((resolve, reject) => {
-    callback = callback || ((err, jimpObject) => {
-      if (err) return reject(err)
-      return resolve(jimpObject)
-    })
+    callback =
+      callback ||
+      ((err, jimpObject) => {
+        if (err) return reject(err)
+        return resolve(jimpObject)
+      })
 
     if (!image) {
       return callback(new ReplaceColorError('PARAMETER_REQUIRED', 'options.image'))
     }
 
-    const colorsValidationError = validateColors(colors)
-    if (colorsValidationError) {
-      return callback(new ReplaceColorError(colorsValidationError.code, colorsValidationError.field))
+    if (!colors) {
+      callback(new ReplaceColorError('PARAMETER_REQUIRED', 'options.colors'))
     }
+    colors.forEach((val) => {
+      const colorsValidationError = validateColors(val)
+      if (colorsValidationError) {
+        return callback(new ReplaceColorError(colorsValidationError.code, colorsValidationError.field))
+      }
+    })
 
     if (!(typeof formula === 'string' && ['E76', 'E94', 'E00'].includes(formula))) {
       return callback(new ReplaceColorError('PARAMETER_INVALID', 'options.formula'))
@@ -42,24 +44,26 @@ module.exports = ({
 
     Jimp.read(image)
       .then((jimpObject) => {
-        const targetLABColor = convertColor(colors.type, 'lab', colors.targetColor)
-        const replaceRGBColor = convertColor(colors.type, 'rgb', colors.replaceColor)
+        colors.forEach((color) => {
+          const targetLABColor = convertColor(color.type, 'lab', color.targetColor)
+          const replaceRGBColor = convertColor(color.type, 'rgb', color.replaceColor)
+          const setDelta = color.deltaE || deltaE
 
-        jimpObject.scan(0, 0, jimpObject.bitmap.width, jimpObject.bitmap.height, (x, y, idx) => {
-          const currentLABColor = convertColor('rgb', 'lab', [
-            jimpObject.bitmap.data[idx],
-            jimpObject.bitmap.data[idx + 1],
-            jimpObject.bitmap.data[idx + 2]
-          ])
+          jimpObject.scan(0, 0, jimpObject.bitmap.width, jimpObject.bitmap.height, (x, y, idx) => {
+            const currentLABColor = convertColor('rgb', 'lab', [
+              jimpObject.bitmap.data[idx],
+              jimpObject.bitmap.data[idx + 1],
+              jimpObject.bitmap.data[idx + 2]
+            ])
 
-          if (getDelta(currentLABColor, targetLABColor, formula) <= deltaE) {
-            jimpObject.bitmap.data[idx] = replaceRGBColor[0]
-            jimpObject.bitmap.data[idx + 1] = replaceRGBColor[1]
-            jimpObject.bitmap.data[idx + 2] = replaceRGBColor[2]
-            if (replaceRGBColor[3] !== null) jimpObject.bitmap.data[idx + 3] = replaceRGBColor[3]
-          }
+            if (getDelta(currentLABColor, targetLABColor, formula) <= setDelta) {
+              jimpObject.bitmap.data[idx] = replaceRGBColor[0]
+              jimpObject.bitmap.data[idx + 1] = replaceRGBColor[1]
+              jimpObject.bitmap.data[idx + 2] = replaceRGBColor[2]
+              if (replaceRGBColor[3] !== null) jimpObject.bitmap.data[idx + 3] = replaceRGBColor[3]
+            }
+          })
         })
-
         callback(null, jimpObject)
       })
       .catch(callback)
